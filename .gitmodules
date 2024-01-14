@@ -1,0 +1,4 @@
+[submodule "TEMPered"]
+	path = TEMPered
+	url = https://github.com/rmtsrc/TEMPered
+	branch = docker
