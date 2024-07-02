@@ -1,12 +1,9 @@
 #!/usr/bin/env bash
 
-cmd="/usr/local/bin/tempered"
-#cmd="docker run --rm --device=/dev/hidraw0:/dev/hidraw0 --device=/dev/hidraw1:/dev/hidraw1 tempered"
-
 run=0
 until [ $run -ge 10 ]
 do
-  tempered_value=`$cmd`
+  tempered_value=`/usr/local/bin/tempered`
   if [ ! -z "$tempered_value" ]
   then
     break
@@ -29,6 +26,7 @@ then
   curl --request POST \
   --url "$WEBHOOK_URL" \
   --header 'Content-Type: application/json' \
+  --no-progress-meter \
   --data "$data"
 else
   echo "Error getting temperature"
