@@ -1,7 +1,7 @@
 # docker build -t tempered-webhook .
 # docker run --rm --device=/dev/hidraw0:/dev/hidraw0 --device=/dev/hidraw1:/dev/hidraw1 --env WEBHOOK_URL=https://example.com/api/webhook/id tempered-webhook
 
-FROM ubuntu:22.04 AS build
+FROM ubuntu:24.04 AS build
 
 RUN apt update && apt dist-upgrade -y
 
@@ -12,7 +12,7 @@ COPY TEMPered /home/pi/TEMPered
 RUN apt install -y cmake
 RUN cd /home/pi/TEMPered && make clean && make depend && make rebuild_cache && make depend && make && make install
 
-FROM ubuntu:22.04 AS release
+FROM ubuntu:24.04 AS release
 
 COPY --from=build /hidapi/linux/.libs/libhidapi-hidraw.so.0.0.0 /lib/libhidapi-hidraw.so.0
 COPY --from=build /usr/local/lib/x86_64-linux-gnu/* /lib/
